@@ -10,6 +10,7 @@ var agency = {
     socksHost: '127.0.0.1',
     socksPort: 7891
 }
+
 async function run(url,cookie){
     var headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
@@ -203,7 +204,7 @@ app.post('/',async (req, res) => {
     if (!urls) res.send({code:400,msg:'大哥，你tm简直糊整，是这样用的,请传入url链接'})
     if(!urls.match(r)) res.send({code:400,msg:'你的链接有误，请检查链接是否正确或者是否包含 # & 等这样的特殊字符，如果有，请先过滤这些特殊字符'})
     var url = urls.match(r)[0];
-    run(url,cookie)
+    res.send(await run(url,cookie))
    
 })
 const port = process.env.PORT || 3333
